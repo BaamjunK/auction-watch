@@ -1,0 +1,40 @@
+{
+  "filters": {
+    "min_households": 300,
+    "max_failed_bids": 1,
+    "min_area_m2": 59,
+    "min_bid_price": 0,
+    "max_bid_price": 0,
+    "bid_window_days": 14,
+    "regions": [
+      "서울특별시",
+      "경기도 성남시",
+      "경기도 안양시",
+      "경기도 하남시",
+      "경기도 구리시",
+      "경기도 과천시",
+      "경기도 의왕시",
+      "경기도 광명시"
+    ]
+  },
+  "kapt": {
+    "service_key": "",
+    "service_key_env": "KAPT_SERVICE_KEY"
+  },
+  "analyzer": {
+    "enabled": true,
+    "claude_cmd": "claude",
+    "model": "",
+    "max_analyze_per_run": 10,
+    "timeout_sec": 600
+  },
+  "crawler": {
+    "page_size": 50,
+    "max_pages": 35,
+    "request_interval_sec": 2.0
+  },
+  "web": {
+    "output_html": "docs/index.html",
+    "title": "아파트 경매 권리분석 대시보드"
+  }
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  설치 전 __PROJECT_DIR__ 와 __HOME__ 을 실제 경로로 치환한다:
+
+    sed -e "s|__PROJECT_DIR__|$PWD|g" -e "s|__HOME__|$HOME|g" \
+      launchd/com.auction-watch.plist > ~/Library/LaunchAgents/com.auction-watch.plist
+    launchctl load ~/Library/LaunchAgents/com.auction-watch.plist
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.auction-watch</string>
+  <!-- deploy.sh = 파이프라인 실행 → 커밋 → GitHub Pages 배포(푸시)까지 -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>__PROJECT_DIR__/deploy.sh</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>__PROJECT_DIR__</string>
+  <key>StartCalendarInterval</key>
+  <array>
+    <dict><key>Hour</key><integer>9</integer><key>Minute</key><integer>0</integer></dict>
+    <dict><key>Hour</key><integer>15</integer><key>Minute</key><integer>0</integer></dict>
+  </array>
+  <key>StandardOutPath</key>
+  <string>__PROJECT_DIR__/data/launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>__PROJECT_DIR__/data/launchd.log</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <!--
+      __HOME__/.local/bin  : claude CLI (권리분석 에이전트)
+      /opt/homebrew/bin    : gh (git 푸시 인증에 사용)
+      python3 은 deploy.sh 가 requests 설치된 인터프리터를 직접 골라 쓴다.
+    -->
+    <key>PATH</key>
+    <string>__HOME__/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    <key>HOME</key>
+    <string>__HOME__</string>
+  </dict>
+</dict>
+</plist>
